@@ -1,0 +1,25 @@
+{{ partial "header.html" . }}
+
+{{ $paginator := .Paginate (where .Data.Pages "Type" "work") }}
+
+<div class="showcase is-loading" {{ if .Paginator.HasNext }}data-next-url="{{ .Paginator.Next.URL }}"{{ end }}>
+  {{ range $paginator.Pages }}
+    <div class="showcase__item">
+      <figure class="card">
+        <a href="{{ .Permalink }}" class="card__image">
+          <img src="{{ .Params.coverimage }}">
+        </a>
+        <figcaption class="card__caption">
+          <h6 class="card__title">
+            <a href="{{ .Permalink }}">{{ .Title }}</a>
+          </h6>
+          <div class="card__description">
+            <p>{{ .Params.excerpt }}</p>
+          </div>
+        </figcaption>
+      </figure>
+    </div>
+  {{ end }}
+</div>
+
+{{ partial "footer.html" . }}
