@@ -1,13 +1,11 @@
-const webpack = require('webpack');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const extractSass = new ExtractTextPlugin('all.css');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const path = require('path')
+const nodeModulesPath = path.resolve(__dirname, 'node_modules')
 
 module.exports = {
+  devtool: 'source-map',
   entry: {
     all: __dirname + '/assets/js/index.js',
-  },
-  resolve: {
-    root: __dirname + '/assets/js',
   },
   output: {
     path: __dirname + '/public/assets',
@@ -15,30 +13,37 @@ module.exports = {
     publicPath: '/assets',
   },
   module: {
-    loaders: [
+    rules: [
       {
-        test: /.*\.sass$/,
-        loader: extractSass.extract(['css', 'sass', 'import-glob'])
+        test: /\.sass$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          {loader: 'css-loader', options: {sourceMap: true}},
+          {
+            loader: 'sass-loader',
+            options: {
+              sourceMap: true,
+              includePaths: [nodeModulesPath],
+            },
+          },
+          {
+            loader: 'import-glob-loader',
+          },
+        ],
       },
       {
         test: /\.js$/,
         exclude: /(node_modules)/,
         loader: 'babel-loader',
-        query: { presets: ['es2015'] }
-      }
-    ]
+      },
+    ],
   },
   plugins: [
-    extractSass,
-    new webpack.DefinePlugin({
-      'process.env': {
-        'NODE_ENV': JSON.stringify(process.env.NODE_ENV),
-      }
+    new MiniCssExtractPlugin({
+      // Options similar to the same options in webpackOptions.output
+      // both options are optional
+      filename: '[name].css',
+      chunkFilename: '[id].css',
     }),
-    new webpack.optimize.UglifyJsPlugin({
-      compress: { warnings: false },
-      comments: false,
-    }),
-  ]
-};
-
+  ],
+}

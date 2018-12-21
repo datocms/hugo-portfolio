@@ -1,11 +1,10 @@
-const webpack = require('webpack');
+const path = require('path')
+const nodeModulesPath = path.resolve(__dirname, 'node_modules')
 
 module.exports = {
+  devtool: 'source-map',
   entry: {
     all: __dirname + '/assets/js/index.js',
-  },
-  resolve: {
-    root: __dirname + '/assets/js',
   },
   output: {
     path: __dirname + '/public/assets',
@@ -13,30 +12,35 @@ module.exports = {
     publicPath: '/assets',
   },
   module: {
-    loaders: [
+    rules: [
       {
-        test: /.*\.sass$/,
-        loaders: ['style', 'css', 'sass', 'import-glob']
+        test: /\.sass$/,
+        use: [
+          {loader: 'style-loader', options: {sourceMap: true}},
+          {loader: 'css-loader', options: {sourceMap: true}},
+          {
+            loader: 'sass-loader',
+            options: {
+              sourceMap: true,
+              includePaths: [nodeModulesPath],
+            },
+          },
+          {
+            loader: 'import-glob-loader',
+          },
+        ],
       },
       {
         test: /\.js$/,
         exclude: /(node_modules)/,
         loader: 'babel-loader',
-        query: { presets: ['es2015'] }
-      }
-    ]
+      },
+    ],
   },
-  plugins: [
-    new webpack.DefinePlugin({
-      'process.env': {
-        'NODE_ENV': JSON.stringify(process.env.NODE_ENV),
-      }
-    }),
-  ],
+  plugins: [],
   devServer: {
     port: 3000,
     inline: true,
-    stats: 'minimal'
+    stats: 'minimal',
   },
-};
-
+}
