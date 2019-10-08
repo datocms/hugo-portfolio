@@ -1,0 +1,16 @@
+baseurl = "/"
+Paginate = 5
+
+[params]
+  env = "production"
+
+[[menu.main]]
+  name = "Home"
+  weight = 1
+  identifier = "home"
+  url = "/"
+
+# datocms:start
+title = "Creative Inc."
+languageCode = "en"
+# datocms:end

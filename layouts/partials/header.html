@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="<%= settings.language %>">
+  <head>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    {{ if eq .Site.Params.env "production" }}
+      <link rel="stylesheet" href="/assets/all.css">
+    {{ end }}
+    {{ .Site.Data.settings.faviconMetaTags | safeHTML }}
+    {{ if isset .Params "seometatags" }}
+      {{ .Params.seometatags | safeHTML }}
+    {{ else }}
+      {{ .Site.Data.settings.seoMetaTags | safeHTML }}
+    {{ end }}
+  </head>
+  <body>
+    <div class="container">
+      <div class="container__sidebar">
+        <div class="sidebar">
+          <h6 class="sidebar__title">
+            <a href="/">{{ .Site.Data.settings.name }}</a>
+          </h6>
+
+          <div class="sidebar__intro">
+            {{ .Site.Data.settings.intro | markdownify }}
+          </div>
+
+          <ul class="sidebar__menu">
+            {{ $currentNode := . }}
+            {{ range .Site.Menus.main }}
+              <li{{if or ($currentNode.IsMenuCurrent "main" .) ($currentNode.HasMenuCurrent "main" .) }} class="is-active"{{end}}>
+                <a href="{{ .URL }}">{{ .Name }}</a>
+              </li>
+            {{ end }}
+          </ul>
+
+          <p class="sidebar__social">
+            {{ range .Site.Data.settings.socialProfiles }}
+              <a href="{{ .url }}" class="social social--{{ .type }}"></a>
+            {{ end }}
+          </p>
+
+          <div class="sidebar__copyright">
+            {{ .Site.Data.settings.copyright }}
+          </div>
+        </div>
+      </div>
+      <div class="container__body">
+        <div class="container__mobile-header">
+          <div class="mobile-header">
+            <div class="mobile-header__menu">
+              <a href="#" class="hamburger"></a>
+            </div>
+            <div class="mobile-header__logo">
+              <a href="/index.html">{{ .Site.Data.settings.name }}</a>
+            </div>
+          </div>
+        </div>
