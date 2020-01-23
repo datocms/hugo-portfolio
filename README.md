@@ -1,6 +1,15 @@
 # Hugo Portfolio Website
 
-This repo contains a working static website written with [Hugo](http://gohugo.io/), integrated with content coming from this [DatoCMS administrative area](https://dashboard.datocms.com/account/sites/template?name=Portfolio&siteId=604).
+This repo contains a working static website written with [Hugo](http://gohugo.io/), integrated with content coming from DatoCMS.
+
+You can check the [live version deployed on Netlify](https://portfolio-datocms-hugo.netlify.com/), that looks like this:
+
+![Screenshot of the porfolio website](./screenshot.png)
+
+or you can deploy your own, together with the administrative area, with this button:
+
+[![Deploy with DatoCMS](https://dashboard.datocms.com/deploy/button.svg)](https://dashboard.datocms.com/projects/new-from-template/static-website/hugo-portfolio)
+
 
 ## Usage
 
