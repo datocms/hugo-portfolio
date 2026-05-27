@@ -5,7 +5,12 @@
   "datocmsProjectId": "604",
   "deploymentType": "static",
   "buildCommand": "npm run build",
-  "datocmsApiTokenEnvName": "DATO_API_TOKEN",
   "buildDirectory": "public",
-  "livePreviewUrl": "https://portfolio-datocms-hugo.netlify.app/"
+  "livePreviewUrl": "https://portfolio-datocms-hugo.netlify.app/",
+  "environmentVariables": {
+    "DATO_API_TOKEN": {
+      "type": "datocmsAccessToken",
+      "tokenName": "CMA Only (Read)"
+    }
+  }
 }
