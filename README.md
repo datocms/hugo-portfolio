@@ -29,7 +29,7 @@ First, install the dependencies of this project:
 npm install
 ```
 
-Add an `.env` file containing the read-only API token of your DatoCMS site:
+Add an `.env` file containing the `CMA Only (Read)` token of your DatoCMS project:
 
 ```
 echo 'DATO_API_TOKEN=abc123' >> .env
